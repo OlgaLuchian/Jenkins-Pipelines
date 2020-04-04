@@ -19,7 +19,7 @@ node {
    } 
    stage("Copy Artifacts"){ 
       sh """
-      scp -r *  centos@dev1.olgaandolga.com:/tmp
+      scp -r *  centos@qa1.olgaandolga.com:/tmp
        ssh centos@qa1.olgaandolga.com      sudo yum install httpd -y
        ssh centos@qa1.olgaandolga.com      sudo cp -r /tmp/style.css /var/www/html/
        ssh centos@qa1.olgaandolga.com      sudo chown centos:centos /var/www/html/
