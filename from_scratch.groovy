@@ -19,7 +19,7 @@ node {
    } 
    stage("Copy Artifacts"){ 
       sh """
-       ssh centos@qa1.olgaandolga.com:/tmp      sudo yum install httpd -y
+       ssh centos@qa1.olgaandolga.com      sudo yum install httpd -y
        ssh centos@qa1.olgaandolga.com      sudo cp -r /tmp/style.css /var/www/html/
        ssh centos@qa1.olgaandolga.com      sudo chown centos:centos /var/www/html/
        ssh centos@qa1.olgaandolga.com      sudo chmod 777 /var/www/html/*
