@@ -10,25 +10,28 @@ node {
 
    stage("Pull Repo"){ 
      git    https://github.com/farrukh90/cool_website.git 
-} 
+   } 
 
    stage("Install Prerequisites"){ 
        sh """ 
-       sudo yum install httpd -y
-       sudo cp -r *  /var/www/html/
-       sudo systemctl start httpd
+       ssh centos@http://jenkins_worker1.olgaandolga.com      sudo yum install httpd -y
        """
-} 
+   } 
+   stage("Copy Artifacts"){ 
+      sh """
+       ssh centos@http://jenkins_worker1.olgaandolga.com:/tmp      sudo yum install httpd -y
+       ssh centos@http://jenkins_worker1.olgaandolga.com      sudo cp -r /tmp/style.css /var/www/html/
+       ssh centos@http://jenkins_worker1.olgaandolga.com      sudo chown centos:centos /var/www/html/
+       ssh centos@http://jenkins_worker1.olgaandolga.com      sudo chmod 777 /var/www/html/*
+       ssh centos@http://jenkins_worker1.olgaandolga.com      sudo systemctl restart httpd
+      """ 
+   } 
 
-   stage("Stage3"){ 
-     echo "hello" 
-} 
-
-   stage("Stage4"){ 
-     echo "hello" 
-} 
+   stage("Restart Web Server"){ 
+      sh  "ssh centos@http://jenkins_worker1.olgaandolga.com    sudo systemctl restart httpd" 
+   } 
 
    stage("Stage5"){ 
-     echo "hello" 
-  } 
+       slackSend color: '#BADA55', message: 'Hello, World!'  
+   } 
 } 
