@@ -22,25 +22,25 @@ node {
       // Installs web server on different environment
    stage("Install Prerequisites"){ 
        sh """ 
-       ssh centos@prod1.olgaandolga.com      sudo yum install httpd -y
+       ssh centos@ENVIR      sudo yum install httpd -y
        """
 
 
    }  // Copies over developers files to different environment
    stage("Copy Artifacts"){ 
       sh """
-      scp -r *  centos@prod1.olgaandolga.com:/tmp
-       ssh centos@prod1.olgaandolga.com      sudo yum install httpd -y
-       ssh centos@prod1.olgaandolga.com      sudo cp -r /tmp/style.css /var/www/html/
-       ssh centos@prod1.olgaandolga.com      sudo chown centos:centos /var/www/html/
-       ssh centos@prod1.olgaandolga.com      sudo chmod 777 /var/www/html/*
-       ssh centos@prod1.olgaandolga.com      sudo systemctl restart httpd
+      scp -r *  centos@ENVIR:/tmp
+       ssh centos@ENVIR      sudo yum install httpd -y
+       ssh centos@ENVIR      sudo cp -r /tmp/style.css /var/www/html/
+       ssh centos@ENVIR      sudo chown centos:centos /var/www/html/
+       ssh centos@ENVIR      sudo chmod 777 /var/www/html/*
+       ssh centos@ENVIR      sudo systemctl restart httpd
       """ 
    } 
       
       // Restarts web server
    stage("Restart Web Server"){ 
-      sh  "ssh centos@prod1.olgaandolga.com    sudo systemctl restart httpd" 
+      sh  "ssh centos@ENVIR    sudo systemctl restart httpd" 
    } 
        
       // Sends a message to slack
