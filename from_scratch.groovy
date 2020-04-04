@@ -14,21 +14,21 @@ node {
 
    stage("Install Prerequisites"){ 
        sh """ 
-       ssh centos@http://jenkins_worker1.olgaandolga.com      sudo yum install httpd -y
+       ssh centos@qa1.olgaandolga.com      sudo yum install httpd -y
        """
    } 
    stage("Copy Artifacts"){ 
       sh """
-       ssh centos@http://jenkins_worker1.olgaandolga.com:/tmp      sudo yum install httpd -y
-       ssh centos@http://jenkins_worker1.olgaandolga.com      sudo cp -r /tmp/style.css /var/www/html/
-       ssh centos@http://jenkins_worker1.olgaandolga.com      sudo chown centos:centos /var/www/html/
-       ssh centos@http://jenkins_worker1.olgaandolga.com      sudo chmod 777 /var/www/html/*
-       ssh centos@http://jenkins_worker1.olgaandolga.com      sudo systemctl restart httpd
+       ssh centos@qa1.olgaandolga.com:/tmp      sudo yum install httpd -y
+       ssh centos@qa1.olgaandolga.com      sudo cp -r /tmp/style.css /var/www/html/
+       ssh centos@qa1.olgaandolga.com      sudo chown centos:centos /var/www/html/
+       ssh centos@qa1.olgaandolga.com      sudo chmod 777 /var/www/html/*
+       ssh centos@qa1.olgaandolga.com      sudo systemctl restart httpd
       """ 
    } 
 
    stage("Restart Web Server"){ 
-      sh  "ssh centos@http://jenkins_worker1.olgaandolga.com    sudo systemctl restart httpd" 
+      sh  "ssh centos@qa1.olgaandolga.com    sudo systemctl restart httpd" 
    } 
 
    stage("Stage5"){ 
