@@ -9,7 +9,7 @@ node {
 
 
    stage("Pull Repo"){ 
-     git    https://github.com/farrukh90/cool_website.git 
+     git    "https://github.com/farrukh90/cool_website.git"
    } 
 
    stage("Install Prerequisites"){ 
@@ -35,3 +35,8 @@ node {
        slackSend color: '#BADA55', message: 'Hello, World!'  
    } 
 } 
+
+
+
+
+
