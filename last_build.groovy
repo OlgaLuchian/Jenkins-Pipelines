@@ -6,7 +6,8 @@ node {
             // runs with "Input" Job
             upstream('Input'),
             // Execute every minute
-            cron('* * * * * ')])
+            cron('* * * * * ')
+            ])
         ])
     stage("Stage1"){ 
         git 'https://github.com/farrukh90/packer.git' 
