@@ -9,7 +9,7 @@ node {
 
 
    stage("Pull Repo"){ 
-     git    "https://github.com/farrukh90/cool_website.git"
+     checkout([$class: 'GitSCM', branches: [[name: '*/FarrukH']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/cool_website.git']]])
    } 
 
    stage("Install Prerequisites"){ 
