@@ -5,16 +5,29 @@ node {
       disableConcurrentBuilds(),
       // Below line triggers this job every minute
       pipelineTriggers([pollSCM('* * * * * ')]),
-      parameters([choice(choices: [
+      parameters([
+         // Asks fro Environment to Build
+         choice(choices: [
          'dev1.olgaandolga.com', 
          'prod1.olgaandolga.com', 
          'qa1.olgaandolga.com', 
          'stage1.olgaandolga.com'],
           description: 'Please choose an environment ', 
-          name: 'ENVIR')]),
+          name: 'ENVIR'),
+          
+          // Asks for version
+          choice(choices: [
+          'v0.1', 
+          'v0.2',
+          'v0.3', 
+          'v0.4', 
+          'v0.5'],  
+        description: 'Which version should we deploy?',  
+        name: 'Version')
+        ])
       ])
 
-       // Pulls a Repo from developer
+      // Pulls a Repo from developer
    stage("Pull Repo"){ 
      checkout([$class: 'GitSCM', branches: [[name: '*/FarrukH']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/cool_website.git']]])
    } 
