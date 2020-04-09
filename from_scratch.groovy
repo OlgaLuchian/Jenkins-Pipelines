@@ -67,7 +67,7 @@ node {
        
       // Sends a message to slack
    stage("Stage5"){ 
-       ws {"mnt/"){
+       ws ("mnt/"){
            slackSend color: '#BADA55', message: 'Hello, World!'  
       }
    } 
