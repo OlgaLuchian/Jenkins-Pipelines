@@ -30,7 +30,7 @@ node {
         timestamps { 
             ws { 
                 sh ''' 
-                   docker build -t artemis . 
+                   docker build -t artemis:{Version} . 
                    ''' 
             } 
         } 
@@ -40,7 +40,7 @@ node {
         timestamps { 
             ws { 
                 sh ''' 
-                   docker build -t artemis:${Version} 777042527031.dkr.ecr.us-east-1.amazonaws.com/artemis:${version}                 
+                   docker tag artemis:${Version} 777042527031.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}                  
                    ''' 
                 } 
             } 
