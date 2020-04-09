@@ -12,10 +12,10 @@ node {
 	name: 'Version'), 
 	choice(choices: 
 	[
-		'dev1.acirrustech.com', 
-		'qa1.acirrustech.com', 
-		'stage1.acirrustech.com', 
-		'prod1.acirrustech.com'], 
+		'dev1.olgaandolga.com', 
+		'qa1.olgaandolga.com', 
+		'stage1.olgaandolga.com', 
+		'prod1.olgaandolga.com'], 
 	description: 'Please provide an environment to build the application', 
 	name: 'ENVIR')])])
 	stage("Stage1"){
