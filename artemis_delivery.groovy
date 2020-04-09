@@ -13,52 +13,17 @@ node {
 	stage("Stage1"){
 		timestamps {
 			ws {
-                checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]])		}
-	}
+                checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]])		
+        }	
+    }
 }
 	stage("Get Credentials"){
 		timestamps {
 			ws{
 				sh '''
-					aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 713287746880.dkr.ecr.us-east-1.amazonaws.com/artemis
-					'''
+                   aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 777042527031.dkr.ecr.us-east-1.amazonaws.com/artemis					
+                   '''
 		    }
-	    }
+        }
     }
-    stage("Build Docker Image"){
-		timestamps {
-			ws {
-				sh '''
-					docker build -t artemis:${Version} .
-					'''
-		    }
-	    }
-    }
-
-    stage("Tag Image"){
-		timestamps {
-			ws {
-				sh '''
-                    docker tag artemis:${Version} 713287746880.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
-                    '''
-				}
-			}
-		}
-    stage("Push Image"){
-	    timestamps {
-			ws {
-				sh '''
-					docker push 713287746880.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version}
-					'''
-				}
-			}
-		}
-	stage("Send slack notifications"){
-		timestamps {
-			ws {
-					echo "Slack"
-					//slackSend color: '#BADA55', message: 'Hello, World!'
-				}
-			}
-		}
-	}
+}
