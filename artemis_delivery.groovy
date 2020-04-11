@@ -27,7 +27,16 @@ node {
 		    }
         }
     }
-}
+}    stage("Build Docker Image"){ 
+        timestamps { 
+            ws { 
+                sh ''' 
+                   docker build -t artemis:${Version} . 
+                   ''' 
+            } 
+        } 
+    }
+}    
 
  
     
