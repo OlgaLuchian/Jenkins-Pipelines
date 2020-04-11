@@ -86,5 +86,23 @@ node {
                 } 
             } 
         } 
-    }     
+    }  
+    stage("Clean Up"){ 
+        timestamps { 
+            ws { 
+                try { 
+                    sh ''' 
+                    #!/bin/bash 
+                    IMAGES=$(ssh centos@dev1.olgaandolga.com docker ps -aq)  
+                    for i in \$IMAGES; do 
+                        ssh centos@$dev1.olgaandolga.com docker stop \$i 
+                        ssh centos@$dev1.olgaandolga.com docker rm \$i 
+                    done  
+                    ''' 
+                } catch(e) { 
+                    println("Script failed with error: ${e}") 
+                } 
+            } 
+        } 
+    } 
 }
