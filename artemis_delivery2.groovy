@@ -8,12 +8,12 @@ node {
 				'0.3', 
 				'0.4', 
 				'0.5',
-                '0.6',
-                '0.7',
-                '0.8',
-                '0.9',
-                '10',
-            ], 
+                '0.6', 
+                '0.7', 
+                '0.8', 
+                '0.9', 
+                '10', 
+                ], 
 	    description: 'Which version of the app should I deploy? ', 
 	    name: 'Version'),
     choice(choices: 
@@ -25,16 +25,13 @@ node {
         'stage1.olgaandolga.com'],
     description: 'Please choose an environment ', 
     name: 'ENVIR')])])
-    
-    
-    
-    stage("Stage1"){
-		timestamps {
-			ws {
-                checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]])		
-        }	
+	    stage("Stage1"){
+		    timestamps {
+			    ws {
+                    checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]])		
+        	
+        }
     }
-}
 	stage("Get Credentials"){
 		timestamps {
 			ws{
@@ -81,5 +78,34 @@ node {
             } 
         } 
     }  
+        stage("Clean Up"){ 
+        timestamps { 
+            ws { 
+                try { 
+                    sh ''' 
+                    #!/bin/bash 
+                    IMAGES=$(ssh centos@${ENVIR}.olgaandolga.com docker ps -aq)  
+                    for i in \$IMAGES; do 
+                        ssh centos@${ENVIR}.olgaandolga.com docker stop \$i 
+                        ssh centos@${ENVIR}.olgaandolga.com docker rm \$i 
+                done  
+                ''' 
+                } catch(e) { 
+                    println("Script failed with error: ${e}") 
+                } 
+            } 
+        } 
+    } 
+        stage("Run Container"){ 
+            timestamps { 
+                ws { 
+                    sh ''' 
+                       ssh centos@dev1.olgaandolga.com docker run -dti -p 5001:5000 713287746880.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version} 
+                       ''' 
+                    } 
+                } 
+            } 
+        } 
+
 
 
