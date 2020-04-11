@@ -17,7 +17,7 @@ node {
                 'us-west-2',  
                 'eu-west-1',  
                 'eu-west-2',  
-                'eu-central-1'],  
+                'eu-central-1'),  
                 description: 'Where would you like to build? ',  
                 name: 'REGION')])]) 
                 stage("Checkout SCM"){ 
