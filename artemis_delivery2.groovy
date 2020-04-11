@@ -13,7 +13,7 @@ node {
                 '0.8', 
                 '0.9', 
                 '10', 
-                ], 
+            ], 
 	    description: 'Which version of the app should I deploy? ', 
 	    name: 'Version'),
     choice(choices: 
