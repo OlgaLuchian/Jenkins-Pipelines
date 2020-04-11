@@ -84,7 +84,7 @@ node {
                 try { 
                     sh ''' 
                     #!/bin/bash 
-                    IMAGES=$(ssh centos@${ENVIR}.olgaandolga.com docker ps -aq)  
+                    IMAGES=$(ssh centos@dev1.olgaandolga.com docker ps -aq)  
                     for i in \$IMAGES; do 
                         ssh centos@$dev1.olgaandolga.com docker stop \$i 
                         ssh centos@$dev1.olgaandolga.com docker rm \$i 
