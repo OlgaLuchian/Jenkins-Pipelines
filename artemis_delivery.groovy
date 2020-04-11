@@ -7,9 +7,25 @@ node {
 				'0.2', 
 				'0.3', 
 				'0.4', 
-				'0.5'], 
+				'0.5',
+                '0.6',
+                '0.7',
+                '0.8',
+                '0.9',
+                '10',
+                ], 
 	    description: 'Which version of the app should I deploy? ', 
-	    name: 'Version')])])
+	    name: 'Version'),
+        choice(choices:  
+        [
+           'dev1.olgaandolga.com',  
+           'qa1.olgaandolga.com',  
+           'stage1.olgaandolga.com',  
+           'prod1.olgaandolga.com'],  
+           description: 'Please provide an environment to build the application',  
+           name: 'ENVIR')])]) 
+        
+        
         stage("Stage1"){
 		timestamps {
 			    ws {
