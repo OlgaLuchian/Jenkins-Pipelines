@@ -7,13 +7,7 @@ node {
 				'0.2', 
 				'0.3', 
 				'0.4', 
-				'0.5',
-                '0.6', 
-                '0.7', 
-                '0.8', 
-                '0.9', 
-                '10', 
-            ], 
+				'0.5'], 
 	    description: 'Which version of the app should I deploy? ', 
 	    name: 'Version'),
     choice(choices: 
@@ -74,6 +68,15 @@ node {
                 ws { 
                     echo "Slack" 
                     //slackSend color: '#BADA55', message: 'Hello, World!' 
+                } 
+            } 
+        } 
+        stage("Authenticate"){ 
+            timestamps { 
+                ws { 
+                   sh ''' 
+                      ssh centos@dev1.olgaandolga.com $(aws ecr get-login --no-include-email --region us-east-1) 
+                      ''' 
                 } 
             } 
         } 
