@@ -7,7 +7,13 @@ node {
 				'0.2', 
 				'0.3', 
 				'0.4', 
-				'0.5'], 
+				'0.5',
+                '0.6',
+                '0.7',
+                '0.8',
+                '0.9',
+                '10',
+            ], 
 	    description: 'Which version of the app should I deploy? ', 
 	    name: 'Version'),
     choice(choices: 
@@ -98,6 +104,15 @@ node {
                 } 
             } 
         } 
-    }    
-        
+    } 
+    stage("Run Container"){ 
+        timestamps { 
+            ws { 
+                sh ''' 
+                ssh centos@dev1.olgaandolga.com docker run -dti -p 5001:5000 777042527031.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version} 
+                ''' 
+            }
+        } 
+    } 
+}       
 
