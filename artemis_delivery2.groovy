@@ -98,8 +98,8 @@ node {
                     for i in \$IMAGES; do 
                         ssh centos@$dev1.olgaandolga.com docker stop \$i 
                         ssh centos@$dev1.olgaandolga.com docker rm \$i 
-                done  
-                ''' 
+                    done  
+                    ''' 
                 } catch(e) { 
                     println("Script failed with error: ${e}") 
                 } 
