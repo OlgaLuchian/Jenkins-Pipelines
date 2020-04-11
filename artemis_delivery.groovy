@@ -9,7 +9,7 @@ node {
 				'0.4', 
 				'0.5'], 
 	    description: 'Which version of the app should I deploy? ', 
-	    name: 'Version')])]),
+	    name: 'Version')])])
         stage("Stage1"){
 		timestamps {
 			    ws {
