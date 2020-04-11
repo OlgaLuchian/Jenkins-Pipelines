@@ -23,7 +23,7 @@ node {
         'prod1.olgaandolga.com', 
         'qa1.olgaandolga.com', 
         'stage1.olgaandolga.com'],
-    description: 'Please choose an environment ', 
+    description: 'Please choose an environment to build the application  ', 
     name: 'ENVIR')])])
 	    stage("Stage1"){
 		    timestamps {
