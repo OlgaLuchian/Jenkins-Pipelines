@@ -105,4 +105,14 @@ node {
             } 
         } 
     } 
-}
+    stage("Run Container"){ 
+        timestamps { 
+            ws { 
+                sh ''' 
+                ssh centos@dev1.olgaandolga.com docker run -dti -p 5001:5000 777042527031.dkr.ecr.us-east-1.amazonaws.com/artemis:${Version} 
+                ''' 
+               }
+            }
+        } 
+    } 
+}       
