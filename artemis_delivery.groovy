@@ -34,8 +34,7 @@ node {
                 checkout([$class: 'GitSCM', branches: [[name: '${Version}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/artemis.git']]])		
         }	
     }
-}
-	stage("Get Credentials"){
+    stage("Get Credentials"){
 		timestamps {
 			ws{
 				sh '''
@@ -80,14 +79,30 @@ node {
                 } 
             } 
         } 
-         stage("Authenticate”){
-            timestamps {
-                ws {
-                    sh ‘’'
-                        ssh centos@dev1.olgaandolga.com $(aws ecr get-login --no-include-email --region eu-east-1)
-                        ‘’'
-                }
-            }
+         stage("Authenticate"){ 
+            timestamps { 
+                ws { 
+                   sh ''' 
+                      ssh centos@dev1.olgaandolga.com $(aws ecr get-login --no-include-email --region us-east-1) 
+                      ''' 
+                } 
+            } 
         } 
-
-
+         stage("Clean Up"){ 
+        timestamps { 
+            ws { 
+                try { 
+                    sh ''' 
+                    #!/bin/bash 
+                    IMAGES=$(ssh centos@dev1.olgaandolga.com docker ps -aq)  
+                    for i in \$IMAGES; do 
+                        ssh centos@$dev1.olgaandolga.com docker stop \$i 
+                        ssh centos@$dev1.olgaandolga.com docker rm \$i 
+                done  
+                ''' 
+                } catch(e) { 
+                    println("Script failed with error: ${e}") 
+                } 
+            } 
+        } 
+        

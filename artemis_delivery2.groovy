@@ -81,7 +81,7 @@ node {
             timestamps { 
                 ws { 
                    sh ''' 
-                      ssh centos@dev1.acirrustech.com $(aws ecr get-login --no-include-email --region us-east-1) 
+                      ssh centos@dev1.olgaandolga.com $(aws ecr get-login --no-include-email --region us-east-1) 
                       ''' 
                 } 
             } 
