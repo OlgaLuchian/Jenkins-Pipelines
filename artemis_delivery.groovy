@@ -27,7 +27,7 @@ node {
 		    }
         }
     }
-}    stage("Build Docker Image"){ 
+    stage("Build Docker Image"){ 
         timestamps { 
             ws { 
                 sh ''' 
