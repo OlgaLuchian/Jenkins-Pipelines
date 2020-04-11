@@ -63,6 +63,15 @@ stage("Push Image"){
             } 
         } 
     } 
+    stage("Authenticate"){ 
+        timestamps { 
+            ws { 
+                sh ''' 
+                ssh centos@dev1.olgaandolga.com $(aws ecr get-login --no-include-email --region us-east-1) 
+                ''' 
+            } 
+        } 
+    } 
 }
    
 
